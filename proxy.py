@@ -6,6 +6,11 @@ import httpx, uvicorn
 app = FastAPI()
 
 
+@app.get("/")
+async def home():
+    return "Go Away Human!"
+
+
 @app.get("/proxy")
 async def proxied(url: str = None):
     if not url:
@@ -19,7 +24,7 @@ async def proxied(url: str = None):
         )
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(url, allow_redirects=True)
+            response = await client.get(url)
             # response.raise_for_status()
             return Response(content=response.content, status_code=response.status_code)
     except Exception as e:
@@ -27,4 +32,4 @@ async def proxied(url: str = None):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=3000)
+    uvicorn.run(app, host="0.0.0.0", port=3000) # cyclic.sh port
