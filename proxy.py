@@ -19,8 +19,8 @@ async def proxied(url: str = None):
         )
     try:
         async with httpx.AsyncClient() as client:
-            response = await client.get(url)
-            response.raise_for_status()
+            response = await client.get(url, allow_redirects=True)
+            # response.raise_for_status()
             return Response(content=response.content, status_code=response.status_code)
     except Exception as e:
         return Response(content=str(e), status_code=500)
