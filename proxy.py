@@ -23,7 +23,7 @@ async def proxied(url: str = None):
             status_code=422,
         )
     try:
-        async with httpx.AsyncClient(follow_redirects=True) as client:
+        async with httpx.AsyncClient(follow_redirects=True, verify=False) as client:
             response = await client.get(url)
             # response.raise_for_status()
             return Response(content=response.content, media_type=response.headers.get("Content-Type"), status_code=response.status_code)
