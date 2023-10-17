@@ -29,7 +29,7 @@ async def proxied(url: str = None):
             if int(response.headers.get("Content-Length")) > int(MAX_VERCEL_PAYLOAD):  # this is for vercel, you can remove if not deploy on vercel
                 return JSONResponse(
                     {
-                        "message": f"payload too large. max is {MAX_VERCEL_PAYLOAD} bytes, current payload is {response.headers.get("Content-Length")} bytes!",
+                        "message": f"payload too large. max is {MAX_VERCEL_PAYLOAD} bytes, current payload is {response.headers.get('Content-Length')} bytes!",
                         "success": False,
                         "creator": "https://github.com/zYxDevs",
                     },
